@@ -1,0 +1,23 @@
+{
+  "name": "ca-backend",
+  "version": "1.0.0",
+  "description": "The backend of the CrazyAddons project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrazyAddonsMC/Backend.git"
+  },
+  "keywords": [
+    "backend",
+    "crazyaddons"
+  ],
+  "author": "CrazyAddons",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CrazyAddonsMC/Backend/issues"
+  },
+  "homepage": "https://crazyaddons.app"
+}
