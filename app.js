@@ -17,6 +17,6 @@ mongoose.connect(process.env.MONGOOSE_STRING, (e) => {
 const start = () => {
     expressServer.startServer(process.env.EXPRESS_PORT || 8352);
     socketServer.startServer(process.env.SOCKET_PORT || 8353);
-    mediaServer.startServer(process.env.MEIDA_PORT || 8354);
+    mediaServer.startServer(process.env.MEDIA_PORT || 8354);
     downloadServer.startServer(process.env.DOWNLOAD_PORT || 8355, process.env.RELEASE_PATH || "/mnt/data/download");
 }
