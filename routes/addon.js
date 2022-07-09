@@ -12,6 +12,14 @@ const {
 const {isAuthenticatedUser} = require('../middlewares/authenticate');
 const {removeAllReleases} = require('../controller/release');
 
+// Gets the addon object by id
+app.get("/:addonId", async (req, res) => {
+    const addon = await getAddonById(req.params.addonId);
+    if (addon === null) return res.status(404).json({message: "The provided addon does not exist"});
+
+    res.json(addon);
+});
+
 // Gets a list of all addons by an author
 app.get("/:authorName/list", async (req, res) => {
     const addons = await listAddonsByAuthorName(req.params.authorName);
