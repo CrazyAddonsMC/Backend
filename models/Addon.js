@@ -36,8 +36,9 @@ const AddonSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    user_id: { // The id of the author
+    author: { // The author
         type: mongoose.mongo.ObjectId,
+        ref: 'users',
         required: true
     },
     price: Number // The price needed to pay for the addon
