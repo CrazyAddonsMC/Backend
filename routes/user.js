@@ -2,7 +2,7 @@ const app = require('express').Router();
 const rateLimit = require('express-rate-limit');
 const {validateSchema} = require('../util/validate');
 const {createUser, updateUser, updateSocials} = require('../validations/user');
-const {getUserByName, createAccount, updateAccount, updateUserSocials} = require('../controller/user');
+const {getUserByName, createAccount, updateAccount, updateUserSocials, getUser} = require('../controller/user');
 const {isAuthenticatedUser} = require('../middlewares/authenticate');
 
 // Defines the rate limit to create a new account
@@ -53,9 +53,9 @@ app.patch("/socials", isAuthenticatedUser, async (req, res) => {
     res.json({message: "Your changes were successfully applied"});
 });
 
-// Gets a specific user by name
-app.get("/:username", async (req, res) => {
-    const user = await getUserByName(req.params.username);
+// Gets a specific user by name or id
+app.get("/:user", async (req, res) => {
+    let user = await getUser(req.params.user);
     if (user === null) return res.status(404).json({message: "The provided user does not exist"});
     user.password = undefined
     user.__v = undefined
