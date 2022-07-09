@@ -8,9 +8,16 @@ module.exports.getUserById = async (id) => {
     return await User.findById(id).exec();
 }
 
-// Gets a user by name
+// Gets a user by name (ignore case)
 module.exports.getUserByName = async (username) => {
-    return await User.findOne({username: {$regex: username, $options: 'i'}}).exec();
+    return User.findOne({username}).collation({locale: "en", strength: 2});
+}
+
+// Gets a user by name or id
+module.exports.getUser = async (usernameOrId) => {
+    if (!mongo.ObjectId.isValid(usernameOrId)) return await this.getUserByName(usernameOrId);
+
+    return await User.findOne({$or: [{_id: usernameOrId}, {username: usernameOrId}]}).exec();
 }
 
 // Creates a new user account
@@ -30,7 +37,7 @@ module.exports.updateAccount = async (user_id, changes) => {
 module.exports.updateUserSocials = async (user_id, socials) => {
     let updatedSocials = {};
     for (let social in socials)
-        updatedSocials["socials."+social] = socials[social];
+        updatedSocials["socials." + social] = socials[social];
 
     if (!mongo.ObjectId.isValid(user_id)) return;
     return await User.findByIdAndUpdate(user_id, {$set: updatedSocials}).exec();
