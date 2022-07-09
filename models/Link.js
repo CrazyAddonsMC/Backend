@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const LinkSchema = new mongoose.Schema({
     token: { // The token used to log in into the socket
         type: String,
-        default: () => crypto.randomBytes(48).toString('hex')
+        default: () => crypto.randomBytes(32).toString('hex')
     },
     user_id: { // The id of the user linked to the server
         type: mongoose.Schema.ObjectId,
