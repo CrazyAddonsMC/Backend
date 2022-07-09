@@ -35,7 +35,7 @@ module.exports.listAddonsByAuthorName = async (author_name) => {
 // Gets an addon by the author and addon name
 module.exports.getAddonByName = async (author_name, name) => {
     const user = await getUserByName(author_name);
-    if (user === null) return;
+    if (user === null) return null;
 
     return await Addon.findOne({author: user._id, name}, {__v: 0}).populate('author', 'username email').collation({locale: "en", strength: 2}).exec();
 }
