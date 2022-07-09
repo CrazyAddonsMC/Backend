@@ -11,7 +11,7 @@ module.exports.getAddonById = async (id) => {
 
 // Gets an addon by the user id and addon name
 module.exports.getAddonFromUser = async (author, addon_name) => {
-    return await Addon.findOne({author, name: addon_name}).populate('author', 'username email').exec();
+    return await Addon.findOne({author, name: addon_name}).collation({locale: "en", strength: 2}).populate('author', 'username email').exec();
 }
 
 // Updates an addon by id
@@ -33,11 +33,11 @@ module.exports.listAddonsByAuthorName = async (author_name) => {
 }
 
 // Gets an addon by the author and addon name
-module.exports.getAddonByName = async (author_name, addon_name) => {
+module.exports.getAddonByName = async (author_name, name) => {
     const user = await getUserByName(author_name);
     if (user === null) return;
 
-    return await Addon.findOne({author: user._id, name: {$regex: addon_name, $options: 'i'}}, {__v: 0}).populate('author', 'username email').exec();
+    return await Addon.findOne({author: user._id, name}, {__v: 0}).populate('author', 'username email').collation({locale: "en", strength: 2}).exec();
 }
 
 // Searches the database for multiple addons by a query
@@ -47,8 +47,8 @@ module.exports.searchAddon = async (query, limit = 25) => {
 }
 
 // Checks if the provided addon already exists (by the id of the author & the name of the addon)
-module.exports.addonExists = async (author, addon_name) => {
+module.exports.addonExists = async (author, name) => {
     if (!mongo.ObjectId.isValid(author)) return;
 
-    return await Addon.findOne({author, name: {$regex: addon_name, $options: 'i'}}).exec() !== null;
+    return await Addon.findOne({author, name}).collation({locale: "en", strength: 2}).exec() !== null;
 }
