@@ -15,7 +15,7 @@ const ReleaseSchema = new mongoose.Schema({
     },
     description: { // The description of the release (ex. what changed)
         type: String,
-        default: "The author of this addon has not provided a description"
+        default: "The author of this release has not provided a description"
     },
     downloads: { // The number of downloads that the release has reached
         type: Number,
