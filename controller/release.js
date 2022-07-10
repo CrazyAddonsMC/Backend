@@ -3,8 +3,8 @@ const {mongo} = require("mongoose");
 const {Magic, MAGIC_MIME_TYPE} = require("mmmagic");
 
 const allowedMimeTypes = {
-    "bk-plugin": ["application/java-archive"],
-    "bc-plugin": ["application/java-archive"],
+    "bukkit-plugin": ["application/java-archive"],
+    "bungee-plugin": ["application/java-archive"],
     "world": ["application/zip"],
     "texturepack": ["application/zip"],
     "config": ["text/plain"]

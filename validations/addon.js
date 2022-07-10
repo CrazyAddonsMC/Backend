@@ -38,7 +38,7 @@ module.exports.create = Joi.object({
         .min(100)
         .max(1000),
     type: Joi.string()
-        .valid("bk-plugin", "bc-plugin", "world", "datapack", "texturepack", "config")
+        .valid("bukkit-plugin", "bungee-plugin", "world", "datapack", "texturepack", "config")
         .required(),
     links: this.links,
     languages: Joi.array()
