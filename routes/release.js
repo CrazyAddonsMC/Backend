@@ -47,7 +47,7 @@ app.put("/:addonId", isAuthenticatedUser, async (req, res) => {
     const addon = await getAddonById(req.params.addonId);
     if (addon === null) return res.status(404).json({message: "The provided addon does not exist"});
 
-    if (!req.user._id.equals(addon.author)) return res.status(404).json({message: "The provided addon does not exist"});
+    if (!req.user._id.equals(addon.author._id)) return res.status(404).json({message: "The provided addon does not exist"});
 
     const release = await getReleaseByAddonId(req.params.addonId, req.body.version);
     if (release) return res.status(409).json({message: "The provided release already exists"});
@@ -73,9 +73,7 @@ app.post("/:id/upload", isAuthenticatedUser, releaseUpload, async (req, res) => 
     const addon = await getAddonById(release.addon_id);
     if (addon === null) return res.status(404).json({message: "The provided release does not exist"});
 
-    console.log(addon)
-
-    if (!req.user._id.equals(addon.author)) return res.status(404).json({message: "The provided release does not exist"});
+    if (!req.user._id.equals(addon.author._id)) return res.status(404).json({message: "The provided release does not exist"});
 
     if (!await isValidReleaseFile(addon.type, file)) return res.status(415).json({message: "The provided file format is not supported"});
 
@@ -94,7 +92,7 @@ app.delete("/:id", isAuthenticatedUser, async (req, res) => {
     const addon = await getAddonById(release.addon_id);
     if (addon === null) return res.status(404).json({message: "The provided release does not exist"});
 
-    if (!req.user._id.equals(addon.author)) return res.status(404).json({message: "The provided release does not exist"});
+    if (!req.user._id.equals(addon.author._id)) return res.status(404).json({message: "The provided release does not exist"});
 
     await release.delete();
     fs.unlink(process.env.RELEASE_PATH + "/" + release._id, () => res.json({message: "Successfully deleted the release"}));
