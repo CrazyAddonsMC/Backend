@@ -70,7 +70,7 @@ app.patch("/:addonId", isAuthenticatedUser, async (req, res) => {
     const addon = await getAddonById(req.params.addonId);
     if (addon === null) return res.status(404).json({message: "The provided addon does not exist"});
 
-    if (!req.user._id.equals(addon.user_id)) return res.status(404).json({message: "The provided addon does not exist"});
+    if (!req.user._id.equals(addon.author)) return res.status(404).json({message: "The provided addon does not exist"});
 
     const updatedAddon = await addon.updateOne(req.body);
     if (!updatedAddon) return res.status(500).json({message: "An internal error occurred"});
@@ -86,7 +86,7 @@ app.patch("/:addonId/links", isAuthenticatedUser, async (req, res) => {
     const addon = await getAddonById(req.params.addonId);
     if (addon === null) return res.status(404).json({message: "The provided addon does not exist"});
 
-    if (!req.user._id.equals(addon.user_id)) return res.status(404).json({message: "The provided addon does not exist"});
+    if (!req.user._id.equals(addon.author)) return res.status(404).json({message: "The provided addon does not exist"});
 
     let updatedBody = {};
     for (let link in req.body)
@@ -103,7 +103,7 @@ app.delete("/:addonId", isAuthenticatedUser, async (req, res) => {
     const addon = await getAddonById(req.params.addonId);
     if (addon === null) return res.status(404).json({message: "The provided addon does not exist"});
 
-    if (!req.user._id.equals(addon.user_id)) return res.status(404).json({message: "The provided addon does not exist"});
+    if (!req.user._id.equals(addon.author)) return res.status(404).json({message: "The provided addon does not exist"});
 
     await addon.delete();
     await removeAllReleases(req.params.addonId);
