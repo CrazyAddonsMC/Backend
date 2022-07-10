@@ -23,6 +23,22 @@ app.get("/:addonId/list", async (req, res) => {
     res.json(releases);
 });
 
+// Gets the latest release from an addon by id
+app.get("/:addonId/latest", async (req, res) => {
+    const release = await getLatestReleaseByAddonId(req.params.addonId);
+    if (!release) return res.status(404).json({message: "The provided addon could not be found"});
+
+    res.json(release);
+});
+
+// Gets a release by version and addon id
+app.get("/:addonId/:version", async (req, res) => {
+    const release = await getReleaseByAddonId(req.params.addonId, req.params.version);
+    if (!release) return res.status(404).json({message: "The provided release could not be found"});
+
+    res.json(release);
+});
+
 // Creates a new release of an addon
 app.put("/:addonId", isAuthenticatedUser, async (req, res) => {
     const validation = await validateSchema(addRelease, req.body);
