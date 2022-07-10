@@ -68,7 +68,7 @@ app.post("/:id/upload", isAuthenticatedUser, releaseUpload, async (req, res) => 
     let file = req.files.upload;
 
     const release = await getReleaseById(req.params.id);
-    if (release === null) return res.status(409).json({message: "The provided release does not exist"});
+    if (release === null) return res.status(404).json({message: "The provided release does not exist"});
 
     const addon = await getAddonById(release.addon_id);
     if (addon === null) return res.status(404).json({message: "The provided release does not exist"});
