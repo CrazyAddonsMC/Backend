@@ -25,7 +25,7 @@ module.exports.getReleaseById = async (id) => {
 // Gets a specific release by the addon id & the version of the release
 module.exports.getReleaseByAddonId = async (addon_id, release_version) => {
     if (!mongo.ObjectId.isValid(addon_id)) return null;
-    return await Release.findOne({addon_id, version: release_version}).exec();
+    return await Release.findOne({addon_id, version: release_version}, {__v: 0}).exec();
 }
 
 // Gets all releases from an addon by id
@@ -37,7 +37,7 @@ module.exports.getReleasesByAddonId = async (addon_id) => {
 // Gets the latest release from an addon by id
 module.exports.getLatestReleaseByAddonId = async (addon_id) => {
     if (!mongo.ObjectId.isValid(addon_id)) return null;
-    return await Release.findOne({addon_id}).sort("-created").exec();
+    return await Release.findOne({addon_id}, {__v: 0}).sort("-created").exec();
 }
 
 // Updates a specific release by id
