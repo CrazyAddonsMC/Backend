@@ -3,10 +3,11 @@ const {mongo} = require("mongoose");
 const {Magic, MAGIC_MIME_TYPE} = require("mmmagic");
 
 const allowedMimeTypes = {
-    "bukkit-plugin": ["application/java-archive"],
-    "bungee-plugin": ["application/java-archive"],
+    "bukkit-plugin": ["application/java-archive", "application/zip"],
+    "bungee-plugin": ["application/java-archive", "application/zip"],
     "world": ["application/zip"],
     "texturepack": ["application/zip"],
+    "datapack": ["application/zip"],
     "config": ["text/plain"]
 }
 
