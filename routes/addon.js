@@ -55,7 +55,7 @@ app.put("/", isAuthenticatedUser, async (req, res) => {
     try {
         res.status(201).json({
             message: "Successfully created the addon",
-            id: (await createAddon({...req.body, user_id: req.user._id}))._id
+            id: (await createAddon({...req.body, author: req.user._id}))._id
         });
     } catch (e) {
         res.status(500).json({message: "An internal error occurred"});
