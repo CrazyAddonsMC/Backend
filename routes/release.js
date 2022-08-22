@@ -13,7 +13,7 @@ const {
 } = require('../controller/release');
 
 // Sets the file size limit
-const releaseUpload = fileUpload({limits: {fileSize: 20000000}, abortOnLimit: true});
+const releaseUpload = fileUpload({limits: {fileSize: 50000000}, abortOnLimit: true});
 
 // Gets all releases from an addon by id
 app.get("/:addonId/list", async (req, res) => {
