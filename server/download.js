@@ -12,7 +12,7 @@ const app = express();
 let dl_folder;
 
 // Register routes
-app.get('/:author/:addon/:version.addon', async (req, res) => {
+app.get('/:author/:addon/:version.(addon|zip|jar)', async (req, res) => {
     // Get author
     const author = await getUserByName(req.params.author);
     if (author === null) return res.status(404).json({code: 1, message: "The provided addon does not exist"});
